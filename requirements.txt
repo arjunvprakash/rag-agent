@@ -1,0 +1,9 @@
+langchain_chroma
+langchain_text_splitters
+langchain_core
+langchain_ollama
+langchain
+dotenv
+langchain_core
+requests
+bs4
