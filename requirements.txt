@@ -5,5 +5,5 @@ langchain_ollama
 langchain
 dotenv
 langchain_core
-requests
-bs4
+langgraph.checkpoint.sqlite
+langchain_community
