@@ -6,3 +6,4 @@ langchain
 dotenv
 langchain_core
 langgraph.checkpoint.sqlite
+langchain_community

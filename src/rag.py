@@ -5,20 +5,20 @@ from langchain_chroma import Chroma
 from langchain_community.document_loaders import PyPDFLoader
 
 
-# Flag that controls reindexing
-REINDEX=False
 
 ## Embedding
 PDF_PATH = "data/data.pdf"
 CHROMA_DIR = "./chroma_db"
 COLLECTION_NAME = "rag_agent"
-EMBED_MODEL="mxbai-embed-large"
+# EMBED_MODEL="mxbai-embed-large"
+EMBED_MODEL="nomic-embed-text"
 BASE_URL="http://127.0.0.1:11434"
 
 
 vectorstore = None
 
 def init_vectorstore():
+    """Initializes the vectorstore."""
     global vectorstore
     if vectorstore == None:
         embeddings = OllamaEmbeddings(
@@ -33,13 +33,17 @@ def init_vectorstore():
     return vectorstore
 
 def load_retriever(reindex:bool):
+    """Loads the vector store and returns the retriever object
+    Args:
+        reindex (bool): if True, reindexes the vector store.
+    """
     global vectorstore
     if vectorstore == None:
         vectorstore = init_vectorstore()
 
     if reindex:
         print("Reindexing vector store....")
-        loader = PyPDFLoader(PDF_PATH, extract_images=False)
+        loader = PyPDFLoader(PDF_PATH)
         docs = loader.load()
 
         splitter = RecursiveCharacterTextSplitter(
@@ -53,7 +57,7 @@ def load_retriever(reindex:bool):
     else:
         print("Loaded existing Chroma index from disk.")
 
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
     # retriever = vectorstore.as_retriever(search_type="similarity_score_threshold", search_kwargs={"k": 4, "score_threshold": 0.8})
     return retriever
 
