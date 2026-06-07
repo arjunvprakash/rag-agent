@@ -8,6 +8,8 @@ It lets you ask questions about a PDF using a fully local LLM setup, with embedd
 - Ollama for local models 
 - LangChain for loading, splitting, retrieval, and QA 
 - ChromaDB for persistent vector storage
+- LangGraph for agent workflow
+> ![agent](./agent.png)
 
 ## Setup
 
@@ -25,7 +27,7 @@ Install and run Ollama, then pull the models you want to use. Local RAG examples
 
 ```bash
 ollama serve
-ollama pull nomic-embed-text
+ollama pull mxbai-embed-large
 ollama pull llama3.2:3b
 ```
 
@@ -35,10 +37,26 @@ ollama pull llama3.2:3b
 2. Run the script:
 
 ```bash
-python3 rag.py
+python3 src/rag.py
 ```
 
-# Basic Tests
+## Project structure
+
+```
+.
+├── agent.png       # Mermaid representation of the LangGraph workflow
+├── chroma_db       # Dir for vectorstore persistence
+├── data            # RAG source directory
+│   └── data.pdf    # Document for RAG
+├── LICENSE
+├── README.md
+├── requirements.txt
+└── src
+    ├── agent.py    # LangGraph workflow
+    └── rag.py      # RAG code
+```
+
+## Basic Tests
 
 > [!WARNING]
 >  Relevant only for a specific PDF document that used for the test scenario.
